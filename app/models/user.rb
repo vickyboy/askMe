@@ -29,7 +29,8 @@ class User < ActiveRecord::Base
 #  accepts_nested_attributes_for :questions
 #  accepts_nested_attributes_for :answers
 
-     def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+     
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
       fb_user = FacebookUser.where(:provider => auth.provider, :uid => auth.uid).first
         fb_user = FacebookUser.create(provider:auth.provider,
                              uid:auth.uid,
