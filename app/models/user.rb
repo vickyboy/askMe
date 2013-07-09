@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
     self.role ||= Role.find_by_name('registered')
   end
   
-  has_many :facebook_users, :dependent => :destroy
+  has_one :facebook_user, :dependent => :destroy
   has_many :questions, :dependent => :destroy
   has_many :answers, :dependent => :destroy
   
@@ -30,31 +30,7 @@ class User < ActiveRecord::Base
 #  accepts_nested_attributes_for :answers
 
      
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-      fb_user = FacebookUser.where(:provider => auth.provider, :uid => auth.uid).first
-        fb_user = FacebookUser.create(provider:auth.provider,
-                             uid:auth.uid,
-                             nickname:auth.info.nickname,
-                             email:auth.info.email,
-                             name:auth.extra.raw_info.name,
-                             first_name:auth.info.first_name,
-                             last_name:auth.info.last_name,
-                             image:auth.info.image,
-                             urls:auth.info.urls,
-                             location:auth.info.location,
-                             verified:auth.info.verified,
-                             password:Devise.friendly_token[0,20]
-                             ) unless fb_user
-        fb_user
-      end
-
+  
       
-     def self.new_with_session(params, session)
-     super.tap do |user|
-        if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-          user.email = data["email"] if user.email.blank?
-        end
-     end
-     end
-
+   
 end
