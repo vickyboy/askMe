@@ -1,0 +1,22 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+  
+      <% if user_signed_in? %>
+    <p class="icon-user"> Logged in as </p> <%= link_to current_user.email, current_user %> | 
+        <li>
+          <p class="icon-off"> <%= link_to('Logout', destroy_user_session_path, :method => :delete, :class => 'navbar-link' ) %></p>
+        </li>
+      <% else %>
+      <li>
+         <p class="icon-ok"> <%= link_to('Login', new_user_session_path, :class => 'navbar-link' )  %> </p>
+        </li> or 
+        <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %>
+      <% end %>
+
+    
+   

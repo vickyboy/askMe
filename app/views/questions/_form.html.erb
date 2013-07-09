@@ -1,0 +1,19 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%= form_for(@question) do |question_form| %>
+    <%= render "shared/error_messages", :target => @question %>  
+ 
+  
+  <div class="field">
+    <%= question_form.text_field(:question) %>
+  </div>
+
+ 
+<%= question_form.submit 'AskMe', :class => 'btn btn-inverse' %>
+
+    <button type="button" class="btn btn-primary" data-loading-text="Loading...">Loading state</button>
+ 
+<% end %>

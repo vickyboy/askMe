@@ -1,0 +1,88 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<div class="span10" style="border: solid 1px #666">
+
+  <div class="navbar navbar-inverse" style="width: 730px;margin-left: -10px;margin-top: 10px;">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand">Question</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 10px;">
+    <p><strong>Question:</strong> <%= @question.question %></p>
+    <b>asked by:</b> <%= link_to @question.user.email, @question.user %>
+  </div>
+
+</div>
+
+
+<div class="span9" style="border: solid 1px #666;margin-top: 20px;margin-bottom: 20px;">
+
+  <div class="navbar navbar-inverse" style="width: 657px;margin-left: -10px;margin-top: 10px;">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand">Answers</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 10px;">
+    <% @question.answers.each do |ans| %>
+      <p><strong>Answer:</strong> <%= ans.answer %></p>
+      <hr>
+    
+      
+  <% if ans.answer == 0 %>
+  <p>No solutions yet!</p>
+  <% end  %>
+<% end %>
+  </div>
+</div>
+
+<div class="span4" style="margin-bottom: 20px;">
+
+<a href="#myModal" role="button" class="btn btn-inverse" data-toggle="modal">Submit your answer</a>
+ 
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Give Your Answer</h3>
+</div>
+<div class="modal-body">
+<%= form_for(@answer) do |f| %>
+    
+  <%= render "shared/error_messages", :target => @answer %>  
+
+      <p>
+        <%= f.text_field :answer %>
+        <%= f.hidden_field :question_id, :value => @question.id %>
+      </p>
+
+</div>
+<div class="modal-footer">
+<p>
+        <%= f.submit 'Submit answer', :class => 'btn btn-inverse' %>
+</p>
+    <% end %>
+</div>
+</div>
+</div>
+
+
+<div class="span10" style="margin-top: 20px;margin-bottom: 20px;">
+
+  <%= link_to 'Edit', edit_question_path(@question) %> |
+  <%= link_to 'Back', questions_path %>
+</div>

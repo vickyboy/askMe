@@ -1,0 +1,45 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<h1>Question Library</h1>
+ 
+<table cellpadding="20px" border="1px" cellspacing="10px" class="table-hover">
+  <tr>
+    <th>Question</th>
+    <% if user_signed_in? || admin_signed_in? %>
+    <th>Edit</th>
+    <th>Delete</th>
+    <% end %>
+  </tr>
+ 
+<% @questions.each do |quest| %>
+  <tr>
+    <td><%= link_to quest.question, quest, 'data-toggle' => 'tooltip', 'title' => 'view question'%></td>
+    <% if user_signed_in? || admin_signed_in? %>
+    <td><%= link_to (image_tag'edit.png', size:"20x20", alt:"Edit_question"), edit_question_path(quest), 'title' => 'edit question' %></td>
+    <td><%= link_to (image_tag'delete.png', size:"20x20", alt:"Delete_question"), quest, :confirm => 'Are you sure?',
+                                     :method => :delete %></td>
+    <% end %>
+  </tr>
+  
+<% end %>
+  
+  
+  <% if @questions.empty? %>
+  <p>No questions found!</p>
+  <% end  %>
+</table>
+ 
+<br />
+
+<%  #new_post_path %>
+<%= link_to 'AskMe new question?', new_question_path %>
+
+
+

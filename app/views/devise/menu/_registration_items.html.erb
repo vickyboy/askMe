@@ -1,0 +1,20 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+  
+  
+  <% if user_signed_in? %>
+  <li>
+    <p class="icon-wrench"> <%= link_to('Edit profile', edit_user_registration_path, :class => 'navbar-link' ) %></p>
+  </li>
+  <% else %>
+  <li>
+   <p class="icon-pencil"> <%= link_to('Register', new_user_registration_path, :class => 'navbar-link' )  %></p>
+  </li>
+  <% end %>
+    
+
+
